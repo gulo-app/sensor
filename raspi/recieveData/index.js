@@ -1,13 +1,24 @@
-const usb = require('usb');
-const callAPI = require('../callAPI');
+const usb 		= 	require('usb');
+const callAPI 	= 	require('../callAPI');
+const DEVICE_ID =	process.env.DEVICE_ID;
+
 
 const recieveData = () => {
   let devices = usb.getDeviceList();
   let device  = devices[0];
-  device.open(true);                                // open device
-  device.interfaces[0].claim();                    // claim interface
+  
 
-  let endpoint = device.interfaces[0].endpoints[0];
+  device.open(true);                                // open device
+  const deviceInterface = device.interfaces[0];
+
+  let driverAttached = false;
+  if (deviceInterface.isKernelDriverActive()) {
+	 	driverAttached = true;
+	   	deviceInterface.detachKernelDriver();
+  }
+
+  deviceInterface.claim();
+  let endpoint = deviceInterface.endpoints[0];
   endpoint.startPoll(1,8);
   let barcode = '';
 
@@ -30,7 +41,8 @@ const recieveData = () => {
     barcode += digit.toString();
   });
 
-  console.log("waiting for scan...");
+  console.log(`device<${DEVICE_ID}> is waiting for scan...`);	
+
 }
 
 module.exports = recieveData;

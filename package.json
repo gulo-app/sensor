@@ -9,11 +9,8 @@
   "author": "tomer&ligal",
   "license": "ISC",
   "dependencies": {
-    "buffers": "^0.1.1",
-    "keycode": "^2.2.0",
-    "node-hid": "^0.7.7",
-    "usb": "^1.5.0",
-    "usb-barcode-scanner": "^1.0.2"
+    "dotenv": "^7.0.0",
+    "usb": "^1.5.0"
   },
   "devDependencies": {},
   "description": ""
