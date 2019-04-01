@@ -12,6 +12,7 @@ const recieveData = () => {
   const deviceInterface = device.interfaces[0];
 
   if(process.env.NODE_ENV!=='desktop'){
+    //sudo apt-get install build-essential libudev-dev
     let driverAttached = false;
     if (deviceInterface.isKernelDriverActive()) {
   	 	driverAttached = true;
