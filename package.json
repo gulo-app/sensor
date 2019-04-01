@@ -9,7 +9,6 @@
   "author": "tomer&ligal",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^7.0.0",
     "usb": "^1.5.0"
   },
   "devDependencies": {},
