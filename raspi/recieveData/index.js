@@ -6,15 +6,17 @@ const DEVICE_ID =	process.env.DEVICE_ID;
 const recieveData = () => {
   let devices = usb.getDeviceList();
   let device  = devices[0];
-  
+
 
   device.open(true);                                // open device
   const deviceInterface = device.interfaces[0];
 
-  let driverAttached = false;
-  if (deviceInterface.isKernelDriverActive()) {
-	 	driverAttached = true;
-	   	deviceInterface.detachKernelDriver();
+  if(process.env.NODE_ENV!=='desktop'){
+    let driverAttached = false;
+    if (deviceInterface.isKernelDriverActive()) {
+  	 	driverAttached = true;
+  	   	deviceInterface.detachKernelDriver();
+    }
   }
 
   deviceInterface.claim();
@@ -30,7 +32,7 @@ const recieveData = () => {
     if(byte<30 || byte>40)
       return false;
 
-    if(byte===40){      
+    if(byte===40){
       callAPI(barcode);
       barcode = '';
       console.log("waiting for scan...");
@@ -41,7 +43,7 @@ const recieveData = () => {
     barcode += digit.toString();
   });
 
-  console.log(`device<${DEVICE_ID}> is waiting for scan...`);	
+  console.log(`device<${DEVICE_ID}> is waiting for scan...`);
 
 }
 
