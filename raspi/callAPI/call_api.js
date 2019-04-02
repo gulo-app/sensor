@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const URI = "http://localhost:9001";
-
+const URI = (process.env.NODE_ENV==='desktop') ? 'http://localhost:9001' : 'https://montv10.net:9400'; //https://gulo-service.herokuapp.com
+console.log(URI);
 const API_CALL = (verb, path, data) => {
   return new Promise((resolve, reject) => {
     let url = `${URI}${path}`;
